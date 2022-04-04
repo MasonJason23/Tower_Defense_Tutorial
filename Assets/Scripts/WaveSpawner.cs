@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    public static List<GameObject> enemiesInScene = new List<GameObject>();
     public Transform enemyPrefab;
     public Transform spawnPoint;
     public TextMeshProUGUI waveCountDownText;
@@ -24,7 +26,7 @@ public class WaveSpawner : MonoBehaviour
         }
 
         countdown -= Time.deltaTime;
-        waveCountDownText.text = Math.Floor(countdown + 1).ToString();
+        waveCountDownText.text = Mathf.Floor(countdown + 1).ToString();
     }
 
     IEnumerator SpawnWave()
@@ -39,6 +41,7 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation).gameObject;
+        enemiesInScene.Add(enemy);
     }
 }
