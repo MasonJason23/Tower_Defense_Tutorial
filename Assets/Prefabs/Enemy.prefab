@@ -108,7 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323375fac7cb7414493a7bc5d634e3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myWaypoints: []
   health: 3
-  speed: 3
+  speed: 7
   coins: 3
