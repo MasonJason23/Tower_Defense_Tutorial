@@ -44,11 +44,10 @@ public class Bullet : MonoBehaviour
 
         GameObject effectInstance = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectInstance, 2f);
-        Destroy(target.gameObject);
+        // Destroy(target.gameObject);
         
-        // removes target Gameobject from List container in WaveSpawner to prevent null exception error
-        WaveSpawner.enemiesInScene.Remove(target.gameObject);
-        
+        target.gameObject.GetComponent<Enemy>().TakeDamage(1);
+
         Destroy(gameObject);
     }
 }

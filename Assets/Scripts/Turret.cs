@@ -15,7 +15,7 @@ public class Turret : MonoBehaviour
     public float range = 15f;
     public float turnSpeed = 10f;
     
-    public float fireRate = 1f;
+    public float fireRate = 2f;
     private float fireDelay = 0f;
     
     private Transform target;
@@ -23,7 +23,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(UpdateTarget), 0f, 0.5f);
+        InvokeRepeating(nameof(UpdateTarget), 0f, 0.2f);
     }
 
     void UpdateTarget()

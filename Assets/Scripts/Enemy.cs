@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy: MonoBehaviour
 {
-    public event Action<GameObject> enemyDied;
-    public event Action baseDamaged;
+    // Todo: Use C# Events
+    // public event Action<GameObject> enemyDied;
+    // public event Action baseDamaged;
+    public HealthBar healthBar;
     
     public int health;
+    public int startHp;
     public float speed;
     public int coins;
 
     private Transform targetWaypoint;
     private Vector3 movementDirection;
-    
+
     private bool traveling;
     private int myWaypointIndex = 0;
     private float minPosX;
@@ -29,6 +33,9 @@ public class Enemy: MonoBehaviour
         transform.LookAt(targetWaypoint);
         movementDirection = (targetWaypoint.position - transform.position).normalized;
         traveling = true;
+        
+        healthBar.SetMaxHealth(startHp);
+        health = startHp;
 
         FindClampRange();
     }
@@ -69,7 +76,7 @@ public class Enemy: MonoBehaviour
             if (myWaypointIndex+1 > Waypoints.waypoints.Length)
             {
                 // Debug.Log("Destination Reach!");
-                if (baseDamaged != null) baseDamaged();
+                // if (baseDamaged != null) baseDamaged();
                 Destroy(gameObject);
                 traveling = false;
                 return;
@@ -104,18 +111,35 @@ public class Enemy: MonoBehaviour
         movementDirection = (targetWaypoint.position - transform.position).normalized;
     }
 
-    public void ReduceHealth()
+    public void TakeDamage(int amount)
     {
-        // Debug.Log("Ouch");
-        health -= 1;
-        if (health == 0)
+        health -= amount;
+
+        if (health <= 0)
         {
-            // Debug.Log("Enemy Died!");
-            if (enemyDied != null)
-            {
-                enemyDied(gameObject);
-            }
+            // removes target Gameobject from List container in WaveSpawner to prevent null exception error
+            WaveSpawner.enemiesInScene.Remove(gameObject);
             Destroy(gameObject);
+            traveling = false;
+            return;
         }
+        
+        healthBar.SetHealth(health);
     }
+
+    // Todo: Use C# Events
+    // public void ReduceHealth()
+    // {
+    //     Debug.Log("Ouch");
+    //     health -= 1;
+    //     if (health == 0)
+    //     {
+    //         Debug.Log("Enemy Died!");
+    //         if (enemyDied != null)
+    //         {
+    //             enemyDied(gameObject);
+    //         }
+    //         Destroy(gameObject);
+    //     }
+    // }
 }
