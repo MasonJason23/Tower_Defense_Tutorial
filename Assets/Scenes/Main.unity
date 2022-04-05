@@ -7170,7 +7170,6 @@ MonoBehaviour:
   standardTurret:
     prefab: {fileID: 1204068001665632988, guid: d65cec962938ea54880c40d80ba7efab, type: 3}
     cost: 100
-    type: 
 --- !u!1001 &1143432352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12983,7 +12982,6 @@ MonoBehaviour:
   turretToBuild:
     prefab: {fileID: 0}
     cost: 0
-    type: 
 --- !u!114 &1882590894
 MonoBehaviour:
   m_ObjectHideFlags: 0

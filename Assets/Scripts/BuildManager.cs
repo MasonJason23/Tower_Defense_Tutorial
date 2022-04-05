@@ -25,7 +25,7 @@ public class BuildManager : MonoBehaviour
     // "Property" - only allows us to get something in return and not set anything else
     public bool CanBuild
     {
-        get { return turretToBuild != null; }
+        get { return turretToBuild.prefab != null; }
     }
 
     public void BuildTurretOn(Node node)
@@ -48,5 +48,4 @@ public class BuildManager : MonoBehaviour
     {
         turretToBuild = turret;
     }
-    
 }
