@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class Enemy: MonoBehaviour
 {
-    // Todo: Use C# Events
-    // public event Action<GameObject> enemyDied;
-    // public event Action baseDamaged;
     public HealthBar healthBar;
+
+    public GameObject deathEffect;
     
     public int health;
     public int startHp;
@@ -120,6 +119,9 @@ public class Enemy: MonoBehaviour
 
     void Die()
     {
+        GameObject deathEffectInstance = (GameObject) Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(deathEffectInstance, 2f);
+        
         PlayerStats.Money += value;
         Destroy(gameObject);
         traveling = false;
