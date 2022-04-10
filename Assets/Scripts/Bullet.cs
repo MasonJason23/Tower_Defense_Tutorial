@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public GameObject impactEffect;
 
     public float speed = 70f;
+
+    public int damage = 1;
     
     private Transform target;
 
@@ -30,7 +32,7 @@ public class Bullet : MonoBehaviour
         // checks if the bullet would already hit the target on the next frame
         if (dir.magnitude <= distanceThisFrame)
         {
-            HitTarget();
+            DamageTarget();
             return;
         }
 
@@ -38,15 +40,15 @@ public class Bullet : MonoBehaviour
 
     }
 
-    void HitTarget()
+    void DamageTarget()
     {
-        // Debug.Log("Target Hit!");
-
+        if (target != null)
+        {
+            target.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+        }
+        
         GameObject effectInstance = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectInstance, 2f);
-        // Destroy(target.gameObject);
-        
-        target.gameObject.GetComponent<Enemy>().TakeDamage(1);
 
         Destroy(gameObject);
     }

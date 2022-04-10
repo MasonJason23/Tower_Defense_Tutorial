@@ -110,6 +110,7 @@ MonoBehaviour:
   partToRotateRef: {fileID: 1951714082401491173}
   bulletPrefab: {fileID: 6412221627132382031, guid: 25df2425990495a47832d4c1ee86d30b, type: 3}
   firePoint: {fileID: 120854030}
+  spawnEffect: {fileID: 4363284569787459322, guid: a520138a480f93148bb0bf8fbae30ed3, type: 3}
   range: 10
   turnSpeed: 10
   fireRate: 1

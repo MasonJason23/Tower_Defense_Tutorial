@@ -14,7 +14,7 @@ public class Enemy: MonoBehaviour
     public int health;
     public int startHp;
     public float speed;
-    public int coins;
+    public int value;
 
     private Transform targetWaypoint;
     private Vector3 movementDirection;
@@ -43,9 +43,6 @@ public class Enemy: MonoBehaviour
     //-----------------------------------------------------------------------------
     void Update()
     {
-        // Debug.Log("MinPos: (" + minPosX + ", " + minPosY + ")");
-        // Debug.Log("MaxPos: (" + maxPosX + ", " + maxPosY + ")");
-
         if (!traveling)
         {
             return;
@@ -67,18 +64,13 @@ public class Enemy: MonoBehaviour
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 toOther = targetWaypoint.position - transform.position;
-        // Debug.Log(Vector3.Dot(forward, toOther));
         if (Vector3.Dot(forward, toOther) <= 0.01f)
         {
             myWaypointIndex++;
-            // Debug.Break();
-            // Debug.Log("Waypoint reached!");
             if (myWaypointIndex+1 > Waypoints.waypoints.Length)
             {
-                // Debug.Log("Destination Reach!");
-                // if (baseDamaged != null) baseDamaged();
-                Destroy(gameObject);
-                traveling = false;
+                // removes target Gameobject from List container in WaveSpawner to prevent null exception error
+                EndPath();
                 return;
             }
             TargetNextWaypoint();
@@ -119,27 +111,25 @@ public class Enemy: MonoBehaviour
         {
             // removes target Gameobject from List container in WaveSpawner to prevent null exception error
             WaveSpawner.enemiesInScene.Remove(gameObject);
-            Destroy(gameObject);
-            traveling = false;
+            Die();
             return;
         }
         
         healthBar.SetHealth(health);
     }
 
-    // Todo: Use C# Events
-    // public void ReduceHealth()
-    // {
-    //     Debug.Log("Ouch");
-    //     health -= 1;
-    //     if (health == 0)
-    //     {
-    //         Debug.Log("Enemy Died!");
-    //         if (enemyDied != null)
-    //         {
-    //             enemyDied(gameObject);
-    //         }
-    //         Destroy(gameObject);
-    //     }
-    // }
+    void Die()
+    {
+        PlayerStats.Money += value;
+        Destroy(gameObject);
+        traveling = false;
+    }
+
+    void EndPath()
+    {
+        PlayerStats.Lives--;
+        WaveSpawner.enemiesInScene.Remove(gameObject);
+        Destroy(gameObject);
+        traveling = false;
+    }
 }

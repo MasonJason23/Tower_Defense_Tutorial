@@ -10,6 +10,8 @@ public class Turret : MonoBehaviour
 
     public GameObject bulletPrefab;
     public Transform firePoint;
+
+    public GameObject spawnEffect;
     
     [Header("Attributes")]
     public float range = 15f;
@@ -23,6 +25,9 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject spawnInstance = (GameObject) Instantiate(spawnEffect, transform.position, Quaternion.identity);
+        Destroy(spawnInstance, 3f);
+        
         InvokeRepeating(nameof(UpdateTarget), 0f, 0.2f);
     }
 

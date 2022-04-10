@@ -302,7 +302,7 @@ MonoBehaviour:
   health: 3
   startHp: 3
   speed: 7
-  coins: 3
+  value: 50
 --- !u!1 &5913622839295262029
 GameObject:
   m_ObjectHideFlags: 0
