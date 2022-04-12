@@ -44,6 +44,11 @@ public class Turret : MonoBehaviour
         
         foreach (GameObject enemy in WaveSpawner.enemiesInScene)
         {
+            if (enemy == null)
+            {
+                continue;
+            }
+            
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             if (distanceToEnemy < shortestDistance)
             {
