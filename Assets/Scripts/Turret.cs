@@ -36,6 +36,11 @@ public class Turret : MonoBehaviour
         // Debug.Log("Turret - Enemies Alive: " + WaveSpawner.enemiesInScene.Count);
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
+
+        if (WaveSpawner.enemiesInScene.Count <= 0)
+        {
+            return;
+        }
         
         foreach (GameObject enemy in WaveSpawner.enemiesInScene)
         {
